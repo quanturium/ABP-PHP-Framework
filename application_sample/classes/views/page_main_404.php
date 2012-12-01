@@ -1,0 +1,1 @@
+404 error custom <?php print_r($referer) ?>
