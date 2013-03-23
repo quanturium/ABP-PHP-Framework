@@ -6,9 +6,8 @@ class HomeController extends AbstractApplicationController
 
 	public function launch()
 	{
-		
+	
 	}
-
 }
 
 ?>

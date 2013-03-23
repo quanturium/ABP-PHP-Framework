@@ -1,0 +1,93 @@
+#--------------------------------------------------------------
+# General configuration
+#--------------------------------------------------------------
+
+AddDefaultCharset UTF-8
+
+RewriteEngine on
+RewriteBase /ABP_Framework/application/
+
+#--------------------------------------------------------------
+# Directories & files protection
+#--------------------------------------------------------------
+ 
+RewriteRule \.svn/ - [F]
+RewriteRule \.git/ - [F]
+RewriteRule \.htaccess - [F]
+RewriteRule \.ini - [F]
+RewriteRule docs/ - [F]
+
+#--------------------------------------------------------------
+# Simple rewrite
+#--------------------------------------------------------------
+
+RewriteRule ^(.*)\.js$ $1.php [L]
+RewriteRule ^(.*)\.css$ $1.php [L]
+RewriteRule ^(.*)\.html$ $1.php [L]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+#RewriteCond %{REQUEST_URI} !^/ABP_Framework/application/public/
+RewriteRule ^(.*)$ index.php?url=$1 [L]
+
+#--------------------------------------------------------------
+# CACHE-CONTROL : mod_expires & mod_headers
+#--------------------------------------------------------------
+       
+#Turn on Expires and set default to 0
+ExpiresActive On
+ExpiresDefault A0
+
+# Set up caching on media files for 1 month
+<FilesMatch "\.(flv|ico|pdf|avi|mov|ppt|doc|mp3|wmv|wav)$">
+    ExpiresDefault A2592000
+    Header append Cache-Control "public"
+</FilesMatch>
+ 
+# Set up caching on media files for 1 month
+<FilesMatch "\.(gif|jpg|jpeg|png|swf)$">
+    ExpiresDefault A2592000
+    Header append Cache-Control "public"
+</FilesMatch>
+ 
+# Set up caching on css/js/txt file for 1 month
+<FilesMatch "\.(txt|js|css)$">
+    ExpiresDefault A2592000
+    Header append Cache-Control "proxy-revalidate"
+</FilesMatch>
+ 
+# optimizer caching for 1 month
+<FilesMatch "^optimizer(.*)">
+    ExpiresDefault A2592000
+    Header append Cache-Control "proxy-revalidate"
+</FilesMatch>
+
+# Force no caching for dynamic files
+<FilesMatch "([^\.(flv|ico|pdf|avi|mov|ppt|doc|mp3|wmv|wav|gif|jpg|jpeg|png|swf|txt|js|css)])$">
+    ExpiresActive Off
+    Header set Cache-Control "private, no-cache, no-store, proxy-revalidate, no-transform"
+    Header set Pragma "no-cache"
+</FilesMatch>
+
+#--------------------------------------------------------------
+# Compression GZIP
+#--------------------------------------------------------------
+
+SetOutputFilter DEFLATE
+
+SetEnvIfNoCase Request_URI \.(?:gif|jpe?g|png)$ \
+    no-gzip dont-vary
+    
+SetEnvIfNoCase Request_URI \
+    \.(?:exe|t?gz|zip|bz2|sit|rar)$ \
+    no-gzip dont-vary
+    
+SetEnvIfNoCase Request_URI \.pdf$ no-gzip dont-vary
+
+#--------------------------------------------------------------
+# Unset Etags
+#--------------------------------------------------------------
+              
+# Desactivation des etags
+Header unset ETag
+FileETag None   
