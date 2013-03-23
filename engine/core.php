@@ -60,7 +60,7 @@ class Core
 		}
 		elseif (self::$config['core']['general']['path'] == "web")
 		{
-			self::$config['core']['general']['path'] = self::$config['core']['path']['local'];
+			self::$config['core']['general']['path'] = self::$config['core']['path']['web'];
 		}
 		else
 		{
