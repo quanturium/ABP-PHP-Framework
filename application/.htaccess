@@ -27,8 +27,7 @@ RewriteRule ^(.*)\.html$ $1.php [L]
 
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-#RewriteCond %{REQUEST_URI} !^/ABP_Framework/application/public/
-RewriteRule ^(.*)$ index.php?url=$1 [L]
+RewriteRule ^(.*)$ index.php?url=$0 [PT,L,QSA]
 
 #--------------------------------------------------------------
 # CACHE-CONTROL : mod_expires & mod_headers
