@@ -147,13 +147,12 @@ class Core
 
 	private function getCommand($module, $action, $params)
 	{
-		$module = ucfirst($module);
-		$file = CLASSES . DS . 'controllers' . DS . $module . 'Controller.php';
+		$file = CLASSES . DS . 'controllers' . DS . ucfirst($module) . 'Controller.php';
 
 		if (file_exists($file))
 		{
 			include_once($file);
-			$class = $module . 'Controller';
+			$class = ucfirst($module) . 'Controller';
 			return new $class($this, $this->_response, $action, $module, $params);
 		}
 		else
