@@ -56,12 +56,12 @@ class Core
 
 		if (isset($_SERVER['DEBUG']) && $_SERVER['DEBUG'] == 'true')
 		{
-			self::$config['core']['general']['path'] = self::$config['core']['path']['local'];
+			self::$config['core']['general']['path'] = self::$config['core']['path']['debug'];
 			self::$config['core']['general']['devel'] = true;
 		}
 		else
 		{
-			self::$config['core']['general']['path'] = self::$config['core']['path']['web'];
+			self::$config['core']['general']['path'] = self::$config['core']['path']['release'];
 			self::$config['core']['general']['devel'] = false; 
 		}
 	}
