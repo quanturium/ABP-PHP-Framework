@@ -62,7 +62,7 @@ abstract class AbstractApplicationController
 
 	protected function loadModel($model)
 	{
-		$file = CLASSES . DS . 'models' . DS . $model . 'Model.php';
+		$file = CLASSES . DS . 'models' . DS . ucfirst($model) . 'Model.php';
 
 		if (file_exists($file))
 		{
