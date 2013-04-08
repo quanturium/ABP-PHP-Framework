@@ -3,6 +3,7 @@
 #--------------------------------------------------------------
 
 AddDefaultCharset UTF-8
+SetEnv DEBUG false
 
 RewriteEngine on
 RewriteBase /ABP_Framework/application/

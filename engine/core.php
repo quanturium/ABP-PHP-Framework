@@ -52,19 +52,17 @@ class Core
 		{
 			$path = pathinfo($file);
 			self::$config[$path['filename']] = parse_ini_file($file, true);
-		}
+		}				
 
-		if (self::$config['core']['general']['path'] == "local")
+		if (isset($_SERVER['DEBUG']) && $_SERVER['DEBUG'] == 'true')
 		{
 			self::$config['core']['general']['path'] = self::$config['core']['path']['local'];
-		}
-		elseif (self::$config['core']['general']['path'] == "web")
-		{
-			self::$config['core']['general']['path'] = self::$config['core']['path']['web'];
+			$config['core']['general']['devel'] = true;
 		}
 		else
 		{
-			System::error('Invalid value on "path" in core.ini');
+			self::$config['core']['general']['path'] = self::$config['core']['path']['web'];
+			$config['core']['general']['devel'] = false; 
 		}
 	}
 
